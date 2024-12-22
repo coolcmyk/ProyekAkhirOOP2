@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class PlayerController : MonoBehaviour
 {
     public static PlayerController instance;
+    public AudioController AudioController;
     public Rigidbody2D rb;
     public float moveSpeed = 5f;
     public float mouseSensitivity = 1f;
@@ -84,7 +85,7 @@ public class PlayerController : MonoBehaviour
         {
             if (currentAmmo > 0)
             {
-            // AudioController.instance.PlayGunShot();
+            AudioController.instance.PlayGunShot();
             Ray ray = viewCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
