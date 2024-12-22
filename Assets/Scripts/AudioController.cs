@@ -7,7 +7,13 @@ public class AudioController : MonoBehaviour
     // Start is called before the first frame update
     public static AudioController instance;
 
-    public AudioSource ammo, enemyDeath, enemyShot, gunShot, health, playerHurt, mainSong;
+    public AudioSource  ammo, 
+                        enemyDeath, 
+                        enemyShot, 
+                        gunShot, 
+                        health, 
+                        playerHurt, 
+                        mainSong;
     public AudioClip clip;
 
     public void PlayAmmoPickup()
