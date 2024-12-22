@@ -58,6 +58,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public static PlayerMovement instance;
     public Rigidbody2D rb;
     public float moveSpeed = 5f;
     public float mouseSensitivity = 1f;
@@ -67,7 +68,10 @@ public class PlayerMovement : MonoBehaviour
     
     private Vector2 moveInput;
     private Vector3 mouseInput;
-
+    void awake()
+    {
+        instance = this;
+    }
     void Start()
     {
         // Set up physics properties to prevent unwanted spinning
@@ -137,3 +141,4 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity *= 0.5f;
     }
 }
+
