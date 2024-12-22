@@ -1,12 +1,13 @@
-using System.Collection;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioMain: MonoBehaviour 
+public class AudioController : MonoBehaviour
 {
+    // Start is called before the first frame update
     public static AudioController instance;
 
-    public AudioSource ammo, enemyDeath, enemyShot, gunShot, health, playerHurt;
+    public AudioSource ammo, enemyDeath, enemyShot, gunShot, health, playerHurt, mainSong;
     public AudioClip clip;
 
     public void PlayAmmoPickup()
@@ -39,11 +40,10 @@ public class AudioMain: MonoBehaviour
         health.Play();
     }
 
-    public PlayPlayerHurt()
+    public void PlayPlayerHurt()
     {
         playerHurt.Stop();
         playerHurt.Play();
     }
-
 
 }

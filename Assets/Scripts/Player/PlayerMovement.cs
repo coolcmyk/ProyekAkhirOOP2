@@ -117,6 +117,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if(Input.GetMouseButton(0))
         {
+            AudioController.instance.PlayGunShot();
             Ray ray = viewCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
             RaycastHit hit;
             if(Physics.Raycast(ray, out hit))
