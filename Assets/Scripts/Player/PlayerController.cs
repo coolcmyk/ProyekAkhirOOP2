@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     
     private Vector2 moveInput;
     private Vector2 mouseInput;
-    private int currentHealth;
+    public int currentHealth;
     public int maxHealth = 100;
     public GameObject deathScreen;
     public Animator gunAnim;
@@ -29,7 +29,9 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+
         // Set up physics properties to prevent unwanted spinning
+        currentHealth = maxHealth;
         rb.freezeRotation = true; // Prevents physics-based rotation
         rb.drag = drag; // Adds linear drag (friction)
         rb.angularDrag = angularDrag; // Adds rotational drag
@@ -136,5 +138,3 @@ public class PlayerController : MonoBehaviour
        }
     }
 }
-
-

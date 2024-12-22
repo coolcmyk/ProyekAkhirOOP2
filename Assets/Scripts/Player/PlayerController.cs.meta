@@ -3,7 +3,13 @@ guid: 650dd61ec4c81124082215a84e73c423
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - AudioController: {instanceID: 0}
+  - rb: {instanceID: 0}
+  - viewCam: {instanceID: 0}
+  - bulletImpact: {fileID: 7285315496842916148, guid: 10f50ea5276d7074888d759e1fbd9087, type: 3}
+  - deathScreen: {instanceID: 0}
+  - gunAnim: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
