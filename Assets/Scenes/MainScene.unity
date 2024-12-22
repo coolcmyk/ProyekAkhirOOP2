@@ -638,6 +638,7 @@ GameObject:
   - component: {fileID: 85235675}
   - component: {fileID: 85235674}
   - component: {fileID: 85235677}
+  - component: {fileID: 85235678}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -684,6 +685,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 650dd61ec4c81124082215a84e73c423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AudioController: {fileID: 85235678}
   rb: {fileID: 85235674}
   moveSpeed: 5
   mouseSensitivity: 1
@@ -692,6 +694,7 @@ MonoBehaviour:
   angularDrag: 10
   bulletImpact: {fileID: 7285315496842916148, guid: 10f50ea5276d7074888d759e1fbd9087, type: 3}
   currentAmmo: 167
+  currentHealth: 0
   maxHealth: 100
   deathScreen: {fileID: 0}
   gunAnim: {fileID: 1260379041}
@@ -746,6 +749,28 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &85235678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 85235673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ce2c7cd64cb66c4c83acd2735b7c8c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  footStep: {fileID: 0}
+  goalTime: 0
+  ammo: {fileID: 0}
+  enemyDeath: {fileID: 0}
+  enemyShot: {fileID: 0}
+  gunShot: {fileID: 0}
+  health: {fileID: 0}
+  playerHurt: {fileID: 0}
+  mainSong: {fileID: 0}
+  clip: {fileID: 0}
 --- !u!1 &90981833
 GameObject:
   m_ObjectHideFlags: 0
