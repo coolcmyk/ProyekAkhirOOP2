@@ -6,6 +6,7 @@ public class AudioController : MonoBehaviour
 {
     // Start is called before the first frame update
     public static AudioController instance;
+    public GameObject footStep;
 
     public AudioSource  ammo, 
                         enemyDeath, 
@@ -52,4 +53,35 @@ public class AudioController : MonoBehaviour
         playerHurt.Play();
     }
 
+    public void PlayFootStep()
+    {
+        if(Input.GetKeyDown("a")){
+            footStep.SetActive(true);
+        }
+        if(Input.GetKeyDown("d")){
+            footStep.SetActive(true);
+        }
+        if(Input.GetKeyDown("s")){
+            footStep.SetActive(true);
+        }
+        if(Input.GetKeyDown("w")){
+            footStep.SetActive(true);
+        }
+    }
+
+    public void StopFootStep()
+    {
+        if(Input.GetKeyUp("w")){
+            footStep.SetActive(false);
+        }
+        if(Input.GetKeyUp("a")){
+            footStep.SetActive(false);
+        }
+        if(Input.GetKeyUp("s")){
+            footStep.SetActive(false);
+        }
+        if(Input.GetKeyUp("d")){
+            footStep.SetActive(false);
+        }
+    }
 }

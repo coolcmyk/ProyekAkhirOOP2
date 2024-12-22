@@ -92,7 +92,8 @@ public class PlayerMovement : MonoBehaviour
         if (!hasDied) // kalau gak mati dia masi bisa ngelakuin yg didalam if, kalau mati player gak bisa ngelakuin apa2
         {
             HandleInput();
-        HandleShooting();
+            HandleShooting();
+            HandleFootstep();
         }
     }
 
@@ -171,6 +172,16 @@ public class PlayerMovement : MonoBehaviour
        {
            currentHealth = maxHealth;
        }
+    }
+    public void HandleFootstep()
+    {
+        bool isMoving = rb.velocity.sqrMagnitude > 0.01f;
+        if (isMoving){
+            AudioController.instance.PlayFootStep();
+        }
+        else{
+            AudioController.instance.StopFootStep();
+        }
     }
 }
 
