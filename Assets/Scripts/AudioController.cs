@@ -7,6 +7,7 @@ public class AudioController : MonoBehaviour
     // Start is called before the first frame update
     public static AudioController instance;
     public GameObject footStep;
+    public double goalTime;
 
     public AudioSource  ammo, 
                         enemyDeath, 
@@ -16,6 +17,12 @@ public class AudioController : MonoBehaviour
                         playerHurt, 
                         mainSong;
     public AudioClip clip;
+    
+    public void Start()
+    {
+        instance = this;
+        mainSong.loop = true;
+    }
 
     public void PlayAmmoPickup()
     {
@@ -84,4 +91,26 @@ public class AudioController : MonoBehaviour
             footStep.SetActive(false);
         }
     }
+
+    public void PlayMusic()
+    {
+        if(!mainSong.isPlaying){
+            mainSong.Play();
+        }
+    }
+
+    public void StopMusic()
+    {
+        if(mainSong.isPlaying){
+            mainSong.Stop();
+        }
+    }
+/*
+    public void OnPlayMusic()
+    {
+        goalTime = AudioSettings.dspTime + 0.5;
+        audioSource.clip = currentClip;
+        audioSource.PlayScheduled(goalTime);
+    }
+*/
 }
