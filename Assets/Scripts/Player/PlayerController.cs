@@ -39,8 +39,12 @@ public class PlayerController : MonoBehaviour
     {
         if (!hasDied) // kalau gak mati dia masi bisa ngelakuin yg didalam if, kalau mati player gak bisa ngelakuin apa2
         {
+            AudioController.PlayMusic();
             HandleInput();
             HandleShooting();
+        }
+        else{
+            AudioController.StopMusic();
         }
     }
 
