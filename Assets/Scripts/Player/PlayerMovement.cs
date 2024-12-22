@@ -65,13 +65,19 @@ public class PlayerMovement : MonoBehaviour
     public Camera viewCam;
     public float drag = 5f; // Added drag value
     public float angularDrag = 10f; // Added angular drag value
+    public GameObject bulletImpact; // Declare bullet impact object
     
     private Vector2 moveInput;
-    private Vector3 mouseInput;
-    void awake()
+    private Vector2 mouseInput;
+    private int currentHealth;
+    public int maxHealth = 100;
+    public GameObject deathScreen;
+    private bool hasDied;
+    void Awake() // Fix method name to use proper capitalization
     {
         instance = this;
     }
+
     void Start()
     {
         // Set up physics properties to prevent unwanted spinning
@@ -83,8 +89,11 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        HandleInput();
+        if (!hasDied) // kalau gak mati dia masi bisa ngelakuin yg didalam if, kalau mati player gak bisa ngelakuin apa2
+        {
+            HandleInput();
         HandleShooting();
+        }
     }
 
     void HandleInput()
@@ -93,13 +102,13 @@ public class PlayerMovement : MonoBehaviour
         moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         Vector3 moveHorizontal = transform.up * -moveInput.x;
         Vector3 moveVertical = transform.right * moveInput.y;
-        
+
         // Apply movement as force instead of direct velocity
         rb.velocity = Vector2.Lerp(rb.velocity, (moveHorizontal + moveVertical) * moveSpeed, Time.deltaTime * 10f);
 
         // Camera rotation
         mouseInput = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")) * mouseSensitivity;
-        
+
         // Smooth rotation
         Vector3 currentRotation = transform.rotation.eulerAngles;
         transform.rotation = Quaternion.Euler(
@@ -119,18 +128,24 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleShooting()
     {
-        if(Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0))
         {
             AudioController.instance.PlayGunShot();
             Ray ray = viewCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
             RaycastHit hit;
-            if(Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit))
             {
-                Debug.Log(hit.transform.name);
-            }
-            else
-            {
-                Debug.Log("Missed");
+                Instantiate(bulletImpact, hit.point, Quaternion.identity);
+
+                if (hit.transform.CompareTag("Enemy"))
+                {
+                    hit.transform.parent.GetComponent<EnemyController>().TakeDamage();
+                    Debug.Log(hit.transform.name);
+                }
+                else
+                {
+                    Debug.Log("Missed");
+                }
             }
         }
     }
@@ -140,5 +155,23 @@ public class PlayerMovement : MonoBehaviour
         // Reduce velocity on collision to prevent bouncing
         rb.velocity *= 0.5f;
     }
+    public void TakeDamage(int damageAmount)
+    {
+        currentHealth -= damageAmount;
+        if (currentHealth <= 0)
+        {
+            deathScreen.SetActive(true);
+            hasDied = true;
+        }
+    }
+    public void AddHealth(int healthAmount)
+    {
+       currentHealth += healthAmount;
+       if(currentHealth > maxHealth)
+       {
+           currentHealth = maxHealth;
+       }
+    }
 }
+
 
