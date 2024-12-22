@@ -19,7 +19,8 @@ public class AmmoPickup : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            PlayerMovement.instance.currentAmmo += ammoAmout;
+            PlayerController.instance.currentAmmo += ammoAmout;
+            Debug.Log("Ammo: " + PlayerController.instance.currentAmmo);
             Destroy(gameObject);
         }
     }

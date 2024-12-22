@@ -4,17 +4,14 @@ using UnityEngine;
 
 public class Billboard : MonoBehaviour
 {
-    private spriteRenderer theSR;
-    // Start is called before the first frame update
+    private SpriteRenderer theSR;
     void Start()
     {
         theSR = GetComponent<SpriteRenderer>();
-        theSR.flipx = true;
+        theSR.flipX = true;
     }
-
-    // Update is called once per frame
     void Update()
     {
-        transform.LookAt(PlayerMovement.instance.transform.position, -Vector3.forward);
+        transform.LookAt(PlayerController.instance.transform.position, -Vector3.forward);
     }
 }
