@@ -166,7 +166,7 @@ public class PlayerController : MonoBehaviour
     public void handleDeath()
     {
         if(Input.GetKeyDown(KeyCode.R))
-        {
+        {   
             hasDied = false;
             currentHealth = maxHealth;
             healthText.text = currentHealth.ToString() + "%";
