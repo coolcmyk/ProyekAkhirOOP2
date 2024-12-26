@@ -7,7 +7,7 @@ public class DestroyOverTime : MonoBehaviour
     public float lifetime = 5f; // Default value for lifetime
 
     // Start is called before the first frame update
-    void Start()
+    void Update()
     {
         Destroy(gameObject, lifetime);
     }

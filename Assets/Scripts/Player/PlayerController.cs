@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     public static PlayerController instance;
@@ -17,11 +18,13 @@ public class PlayerController : MonoBehaviour
     
     private Vector2 moveInput;
     private Vector2 mouseInput;
-    public int currentHealth;
+    [SerializeField] private int currentHealth;
     public int maxHealth = 100;
     public GameObject deathScreen;
     public Animator gunAnim;
+    public Animator anim;
     private bool hasDied = false;
+    public Text healthText, ammoText;
     void Awake()
     {
         instance = this;
@@ -29,13 +32,17 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-
         // Set up physics properties to prevent unwanted spinning
-        currentHealth = maxHealth;
         rb.freezeRotation = true; // Prevents physics-based rotation
         rb.drag = drag; // Adds linear drag (friction)
         rb.angularDrag = angularDrag; // Adds rotational drag
         rb.gravityScale = 0f; // Ensures gravity doesn't affect movement
+
+        // Set up default health
+        currentHealth = maxHealth;
+
+        healthText.text = currentHealth.ToString() + "%";
+        ammoText.text = currentAmmo.ToString();
     }
 
     void Update()
@@ -87,31 +94,39 @@ public class PlayerController : MonoBehaviour
         {
             if (currentAmmo > 0)
             {
-            AudioController.instance.PlayGunShot();
-            Ray ray = viewCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-            RaycastHit hit;
+                //AudioController.instance.PlayGunShot();
+                Ray ray = viewCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+                RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
                 // Instantiate(bulletImpact, hit.point, Quaternion.identity);
                 Instantiate(bulletImpact, hit.point, transform.rotation);
 
-                // if (hit.transform.CompareTag("Enemy"))
-                // {
-                //     // hit.transform.parent.GetComponent<EnemyController>().TakeDamage();
-                //     Debug.Log(hit.transform.name);
-                // }
-                // else
-                // {
-                //     Debug.Log("Missed");
-                // }
+                if (hit.transform.tag == "Enemy")
+                {
+                    hit.transform.parent.GetComponent<EnemyController>().TakeDamage();
+                    //Debug.Log(hit.transform.name);
+                }
+
+                AudioController.instance.PlayGunShot();
             }
             currentAmmo--;
             gunAnim.SetTrigger("Shoot");
+            UpdateAmmoUI();
+            }
+            else
+            {
+                Debug.Log("Out of ammo!");
+            }
+        }
+        
+        if (moveInput != Vector2.zero)
+        {
+            anim.SetBool("IsMoving", true);
         }
         else
         {
-            Debug.Log("Out of ammo!");
-        }
+            anim.SetBool("IsMoving", false);
         }
     }
 
@@ -127,14 +142,25 @@ public class PlayerController : MonoBehaviour
         {
             deathScreen.SetActive(true);
             hasDied = true;
+            currentHealth = 0;
         }
+        healthText.text = currentHealth.ToString() + "%";
+        AudioController.instance.PlayPlayerHurt();
     }
-    public void AddHealth(int healthAmount)
+    public void AddHealth(int healAmount)
     {
-       currentHealth += healthAmount;
-       if(currentHealth > maxHealth)
-       {
-           currentHealth = maxHealth;
-       }
+        currentHealth += healAmount;
+        if(currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+        healthText.text = currentHealth.ToString() + "%";
+    }
+
+    public void UpdateAmmoUI()
+    {
+        ammoText.text = currentAmmo.ToString();
     }
 }
+
+
