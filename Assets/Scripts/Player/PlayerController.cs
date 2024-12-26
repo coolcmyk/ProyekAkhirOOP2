@@ -94,7 +94,7 @@ public class PlayerController : MonoBehaviour
         {
             if (currentAmmo > 0)
             {
-                //AudioController.instance.PlayGunShot();
+                AudioController.instance.PlayGunShot();
                 Ray ray = viewCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
                 RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
@@ -108,7 +108,7 @@ public class PlayerController : MonoBehaviour
                     //Debug.Log(hit.transform.name);
                 }
 
-                AudioController.instance.PlayGunShot();
+                // AudioController.instance.PlayGunShot();
             }
             currentAmmo--;
             gunAnim.SetTrigger("Shoot");
@@ -161,6 +161,7 @@ public class PlayerController : MonoBehaviour
     {
         ammoText.text = currentAmmo.ToString();
     }
+
 }
 
 
