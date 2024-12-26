@@ -10,7 +10,7 @@
         public Rigidbody2D rb;
         public float moveSpeed;
         public bool shouldShoot;
-        public float fireRate = 1f;
+        public float fireRate = 9f;
         private float shotCounter;
         public GameObject bullet;
         public Transform firePoint;

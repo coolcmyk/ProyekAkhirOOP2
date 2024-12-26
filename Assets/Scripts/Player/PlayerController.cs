@@ -55,6 +55,7 @@ public class PlayerController : MonoBehaviour
         }
         else{
             AudioController.StopMusic();
+            handleDeath();
         }
     }
 
@@ -160,6 +161,23 @@ public class PlayerController : MonoBehaviour
     public void UpdateAmmoUI()
     {
         ammoText.text = currentAmmo.ToString();
+    }
+
+    public void handleDeath()
+    {
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            hasDied = false;
+            currentHealth = maxHealth;
+            healthText.text = currentHealth.ToString() + "%";
+            deathScreen.SetActive(false);
+            teleportPlayer();
+        }
+    }
+
+    public void teleportPlayer()
+    {
+        transform.position = new Vector3(0, 0, 0);
     }
 
 }
